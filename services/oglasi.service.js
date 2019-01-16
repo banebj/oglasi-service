@@ -50,7 +50,7 @@ exports.getOglas = async function () {
             listaStanova.push(oglas)
         })
         if (globalListaStanova.length == 0) {
-            globalListaStanova = listaStanova;
+            globalListaStanova = listaStanova.map(a => ({ ...a }));
         }
         else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link){
             let noviOglas = listaStanova[0]
@@ -80,7 +80,7 @@ exports.getOglas = async function () {
                 console.log(info);
         });
 
-            globalListaStanova = listaStanova;
+            globalListaStanova = listaStanova.map(a => ({ ...a }));
         }
     });
 }
