@@ -107,3 +107,11 @@ exports.getOglas = async function () {
         }
     });
 }
+
+exports.refreshHeroku = async function () {
+
+    request('https://ancient-harbor-48201.herokuapp.com/', (err, res, body) => {
+        if (err) { return console.log(err); }
+        console.debug("Idle success restart")
+    });
+}

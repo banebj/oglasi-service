@@ -34,6 +34,11 @@ new CronJob("0 */1 * * * *", function () {
   oglasiService.getOglas();
 }, null, true);
 
+new CronJob("0 */10 * * * *", function () {
+  console.log('10minutes Heroku refresh');
+  oglasiService.refreshHeroku();
+}, null, true);
+
 app.locals.oglasiList = [];
 
 
