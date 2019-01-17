@@ -66,7 +66,7 @@ exports.getOglas = async function () {
             // setup email data with unicode symbols
             let mailOptions = {
                 from: 'banebjspam@gmail.com', // sender address
-                to: "banebj@gmail.com, ivanasender91@gmail.com", // list of receivers
+                to: "banebj@gmail.com, ivanasender91@gmail.com, milos.djukic@devoteam.com", // list of receivers
                 subject: `Novi oglas za stan ${noviOglas.naslov} !!!`, // Subject line
                 text: `Novi oglas za stan ${noviOglas.naslov} na lokaciji ${noviOglas.lokacija} \n cena: ${noviOglas.cena}, vlasnik: ${noviOglas.vlasnik} \n \n
                 LINK: ${noviOglas.link}`, // plain text body
