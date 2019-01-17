@@ -52,7 +52,7 @@ exports.getOglas = async function () {
         if (globalListaStanova.length == 0) {
             globalListaStanova = listaStanova.map(a => ({ ...a }));
         }
-        else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link){
+        // else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link){
             let noviOglas = listaStanova[0]
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -66,7 +66,7 @@ exports.getOglas = async function () {
             // setup email data with unicode symbols
             let mailOptions = {
                 from: 'banebjspam@gmail.com', // sender address
-                to: "banebj@gmail.com, ivanasender91@gmail.com, milos.djukic@devoteam.com", // list of receivers
+                to: "banebj@gmail.com, ivanasender91@gmail.com", // list of receivers
                 subject: `Novi oglas za stan ${noviOglas.naslov} !!!`, // Subject line
                 text: `Novi oglas za stan ${noviOglas.naslov} na lokaciji ${noviOglas.lokacija} \n cena: ${noviOglas.cena}, vlasnik: ${noviOglas.vlasnik} \n \n
                 LINK: ${noviOglas.link}`, // plain text body
@@ -81,6 +81,6 @@ exports.getOglas = async function () {
         });
 
             globalListaStanova = listaStanova.map(a => ({ ...a }));
-        }
+        // }
     });
 }
