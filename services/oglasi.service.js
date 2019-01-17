@@ -33,7 +33,7 @@ exports.getOglas = async function () {
 
             //link
             let link = article('.fpogl-list-title')[0].attribs.href
-            
+
             oglas.lokacija = article('a')[6].children[0].data
             // request(`https://www.oglasi.rs${link}`, (err, res, body) => {
             //     if (err) { return console.log(err); }
@@ -51,8 +51,31 @@ exports.getOglas = async function () {
         })
         if (globalListaStanova.length == 0) {
             globalListaStanova = listaStanova.map(a => ({ ...a }));
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "banebjspam@gmail.com", // generated ethereal user
+                    pass: "banedb94" // generated ethereal password
+                }
+            });
+
+            // setup email data with unicode symbols
+            let mailOptions = {
+                from: 'banebjspam@gmail.com', // sender address
+                to: "banebj@gmail.com", // list of receivers
+                subject: `Test mejl heroku app !!!`, // Subject line
+                text: `test heroku`, // plain text body
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, function (err, info) {
+                if (err)
+                    console.log(err)
+                else
+                    console.log(info);
+            });
         }
-        // else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link){
+        else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link) {
             let noviOglas = listaStanova[0]
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -73,14 +96,14 @@ exports.getOglas = async function () {
             };
 
             // send mail with defined transport object
-        transporter.sendMail(mailOptions, function (err, info) {
-            if (err)
-                console.log(err)
-            else
-                console.log(info);
-        });
+            transporter.sendMail(mailOptions, function (err, info) {
+                if (err)
+                    console.log(err)
+                else
+                    console.log(info);
+            });
 
             globalListaStanova = listaStanova.map(a => ({ ...a }));
-        // }
+        }
     });
 }
