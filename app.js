@@ -37,9 +37,6 @@ new CronJob("0 */1 * * * *", function () {
 //   oglasiService.refreshHeroku();
 // }, null, true);
 
-app.locals.oglasiList = [];
-
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
