@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs')
+const url = require("url");
 
 const app = require("../app")
 
@@ -32,20 +33,13 @@ exports.getOglas = async function () {
             oglas.cena = article('.text-price strong')[0].children[0].data;
 
             //link
-            let link = article('.fpogl-list-title')[0].attribs.href
+            oglas.link = article('.fpogl-list-title')[0].attribs.href
 
             oglas.lokacija = article('a')[6].children[0].data
-            // request(`https://www.oglasi.rs${link}`, (err, res, body) => {
-            //     if (err) { return console.log(err); }
-            //     const stranica = cheerio.load(body);
-
-            //     oglas.lokacija = stranica('tr')[0].children[3].children[0].data;
-            //     return oglas;
-            // }, () => console.debug(oglas))
-
-            oglas.link = `https://www.oglasi.rs${link}`
-
-
+            
+            //stavljamo ID od oglasa iz linka
+            let linkArray = oglas.link.split('/');
+            oglas.id = linkArray[linkArray.length - 2]
 
             listaStanova.push(oglas)
         })
@@ -75,7 +69,7 @@ exports.getOglas = async function () {
                     console.log(info);
             });
         }
-        else if (globalListaStanova[0].link != listaStanova[0].link || globalListaStanova[1].link != listaStanova[1].link) {
+        else if (globalListaStanova[0].id != listaStanova[0].id || globalListaStanova[1].id != listaStanova[1].id) {
             let noviOglas = listaStanova[0]
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -92,9 +86,8 @@ exports.getOglas = async function () {
                 to: "banebj@gmail.com, ivanasender91@gmail.com", // list of receivers
                 subject: `Novi oglas za stan ${noviOglas.naslov} !!!`, // Subject line
                 text: `Novi oglas za stan ${noviOglas.naslov} na lokaciji ${noviOglas.lokacija} \n cena: ${noviOglas.cena}, vlasnik: ${noviOglas.vlasnik} \n \n
-                LINK: ${noviOglas.link}`, // plain text body
+                LINK: https://www.oglasi.rs${noviOglas.link}`, // plain text body
             };
-
             // send mail with defined transport object
             transporter.sendMail(mailOptions, function (err, info) {
                 if (err)
@@ -102,6 +95,16 @@ exports.getOglas = async function () {
                 else
                     console.log(info);
             });
+
+            //TODO uzeti podatke s stranice
+
+            // request(`https://www.oglasi.rs${link}`, (err, res, body) => {
+            //     if (err) { return console.log(err); }
+            //     const stranica = cheerio.load(body);
+
+            //     oglas.lokacija = stranica('tr')[0].children[3].children[0].data;
+            //     return oglas;
+            // }, () => console.debug(oglas))
 
             globalListaStanova = listaStanova.map(a => ({ ...a }));
         }
