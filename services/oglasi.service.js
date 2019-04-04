@@ -12,7 +12,9 @@ let globalListaStanova = []
 exports.getOglas = async function () {
 
     let listaStanova = [];
-    request('https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad?s=d&pr%5Bs%5D=50&pr%5Be%5D=250&pr%5Bc%5D=EUR&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BSobnost%5D%5B1%5D=Dvosoban&d%5BOpremljenost%5D%5B0%5D=Delimi%C4%8Dno+name%C5%A1ten&d%5BOpremljenost%5D%5B1%5D=Name%C5%A1ten', (err, res, body) => {
+    request({ "rejectUnauthorized": false, 
+    "url":'https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad?s=d&pr%5Bs%5D=50&pr%5Be%5D=250&pr%5Bc%5D=EUR&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BSobnost%5D%5B1%5D=Dvosoban&d%5BOpremljenost%5D%5B0%5D=Delimi%C4%8Dno+name%C5%A1ten&d%5BOpremljenost%5D%5B1%5D=Name%C5%A1ten'}
+    , (err, res, body) => {
         if (err) { return console.log(err); }
         const $ = cheerio.load(body);
 
