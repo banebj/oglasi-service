@@ -46,33 +46,33 @@ exports.getOglas = async function () {
 
             listaStanova.push(oglas)
         })
-        // if (globalListaStanova.length == 0) {
-        //     globalListaStanova = listaStanova.map(a => ({ ...a }));
-        //     let transporter = nodemailer.createTransport({
-        //         service: 'gmail',
-        //         auth: {
-        //             user: "banebjspam@gmail.com", // generated ethereal user
-        //             pass: "banedb94" // generated ethereal password
-        //         }
-        //     });
+        if (globalListaStanova.length == 0) {
+            globalListaStanova = listaStanova.map(a => ({ ...a }));
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "banebjspam@gmail.com", // generated ethereal user
+                    pass: "banedb94" // generated ethereal password
+                }
+            });
 
-        //     // setup email data with unicode symbols
-        //     let mailOptions = {
-        //         from: 'banebjspam@gmail.com', // sender address
-        //         to: "banebj@gmail.com", // list of receivers
-        //         subject: `Test mejl heroku app !!!`, // Subject line
-        //         text: `test heroku`, // plain text body
-        //     };
+            // setup email data with unicode symbols
+            let mailOptions = {
+                from: 'banebjspam@gmail.com', // sender address
+                to: "banebj@gmail.com", // list of receivers
+                subject: `Test mejl heroku app !!!`, // Subject line
+                text: `test heroku`, // plain text body
+            };
 
-        //     // send mail with defined transport object
-        //     transporter.sendMail(mailOptions, function (err, info) {
-        //         if (err)
-        //             console.log(err)
-        //         else
-        //             console.log(info);
-        //     });
-        // }
-        if (globalListaStanova[0].id != listaStanova[0].id || globalListaStanova[1].id != listaStanova[1].id) {
+            // send mail with defined transport object
+            // transporter.sendMail(mailOptions, function (err, info) {
+            //     if (err)
+            //         console.log(err)
+            //     else
+            //         console.log(info);
+            // });
+        }
+        else if (globalListaStanova[0].id != listaStanova[0].id || globalListaStanova[1].id != listaStanova[1].id) {
             let noviOglas = listaStanova[0]
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
