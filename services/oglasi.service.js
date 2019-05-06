@@ -13,7 +13,7 @@ exports.getOglas = async function () {
 
     let listaStanova = [];
     request({ "rejectUnauthorized": false, 
-    "url":'https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad?s=d&pr%5Bs%5D=50&pr%5Be%5D=250&pr%5Bc%5D=EUR&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BSobnost%5D%5B1%5D=Dvosoban&d%5BOpremljenost%5D%5B0%5D=Delimi%C4%8Dno+name%C5%A1ten&d%5BOpremljenost%5D%5B1%5D=Name%C5%A1ten'}
+    "url":'https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad/deo/grbavica?s=d&pr%5Bs%5D=50&pr%5Be%5D=220&pr%5Bc%5D=EUR&ss=1&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BOpremljenost%5D%5B0%5D=Name%C5%A1ten'}
     , (err, res, body) => {
         if (err) { return console.log(err); }
         const $ = cheerio.load(body);
@@ -45,33 +45,33 @@ exports.getOglas = async function () {
 
             listaStanova.push(oglas)
         })
-        if (globalListaStanova.length == 0) {
-            globalListaStanova = listaStanova.map(a => ({ ...a }));
-            let transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: "banebjspam@gmail.com", // generated ethereal user
-                    pass: "banedb94" // generated ethereal password
-                }
-            });
+        // if (globalListaStanova.length == 0) {
+        //     globalListaStanova = listaStanova.map(a => ({ ...a }));
+        //     let transporter = nodemailer.createTransport({
+        //         service: 'gmail',
+        //         auth: {
+        //             user: "banebjspam@gmail.com", // generated ethereal user
+        //             pass: "banedb94" // generated ethereal password
+        //         }
+        //     });
 
-            // setup email data with unicode symbols
-            let mailOptions = {
-                from: 'banebjspam@gmail.com', // sender address
-                to: "banebj@gmail.com", // list of receivers
-                subject: `Test mejl heroku app !!!`, // Subject line
-                text: `test heroku`, // plain text body
-            };
+        //     // setup email data with unicode symbols
+        //     let mailOptions = {
+        //         from: 'banebjspam@gmail.com', // sender address
+        //         to: "banebj@gmail.com", // list of receivers
+        //         subject: `Test mejl heroku app !!!`, // Subject line
+        //         text: `test heroku`, // plain text body
+        //     };
 
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions, function (err, info) {
-                if (err)
-                    console.log(err)
-                else
-                    console.log(info);
-            });
-        }
-        else if (globalListaStanova[0].id != listaStanova[0].id || globalListaStanova[1].id != listaStanova[1].id) {
+        //     // send mail with defined transport object
+        //     transporter.sendMail(mailOptions, function (err, info) {
+        //         if (err)
+        //             console.log(err)
+        //         else
+        //             console.log(info);
+        //     });
+        // }
+        if (globalListaStanova[0].id != listaStanova[0].id || globalListaStanova[1].id != listaStanova[1].id) {
             let noviOglas = listaStanova[0]
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -85,7 +85,7 @@ exports.getOglas = async function () {
             // setup email data with unicode symbols
             let mailOptions = {
                 from: 'banebjspam@gmail.com', // sender address
-                to: "banebj@gmail.com, ivanasender91@gmail.com", // list of receivers
+                to: "duleucz@gmail.com", // list of receivers
                 subject: `Novi oglas za stan ${noviOglas.naslov} !!!`, // Subject line
                 text: `Novi oglas za stan ${noviOglas.naslov} na lokaciji ${noviOglas.lokacija} \n cena: ${noviOglas.cena}, vlasnik: ${noviOglas.vlasnik} \n \n
                 LINK: https://www.oglasi.rs${noviOglas.link}`, // plain text body
