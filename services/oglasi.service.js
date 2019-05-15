@@ -14,7 +14,7 @@ exports.getOglas = async function () {
     let listaStanova = [];
     
     request({ "rejectUnauthorized": false, 
-    "url":'https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad/deo/grbavica?s=d&pr%5Bs%5D=50&pr%5Be%5D=220&pr%5Bc%5D=EUR&ss=1&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BOpremljenost%5D%5B0%5D=Name%C5%A1ten'}
+    "url":'https://www.oglasi.rs/oglasi/nekretnine/izdavanje/stanova/grad/novi-sad/deo/grbavica?s=d&pr%5Bs%5D=50&pr%5Be%5D=220&pr%5Bc%5D=EUR&ss=1&rt=vlasnik&d%5BSobnost%5D%5B0%5D=Jednoiposoban&d%5BSobnost%5D%5B1%5D=Garsonjera&d%5BSobnost%5D%5B2%5D=Jednosoban&d%5BOpremljenost%5D%5B0%5D=Name%C5%A1ten'}
     , (err, res, body) => {
         if (err) { return console.log(err); }
         const $ = cheerio.load(body);
